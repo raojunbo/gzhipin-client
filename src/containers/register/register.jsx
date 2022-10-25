@@ -10,7 +10,8 @@ import TopNavBar from "../../components/navbar/TopNavBar";
 import Logo from "../../components/logo/logo";
 
 import { FormItem } from "antd-mobile/es/components/form/form-item";
-
+import { connect } from "react-redux"; // 这里是redux的内容
+import { register } from '../../redux/actions' // 引入redux的actions
 class Register extends Component {
     constructor(props) {
         super(props)
@@ -21,12 +22,11 @@ class Register extends Component {
             usertype: "laoban"
         }
     }
-    registe() {
-        console.log(this.state)
+    toRegiste() {
+        this.props.register(this.state)
     }
     toLogin() {
         console.log(this.state)
-        // 路由使用不正确
         this.history.push("/login")
     }
     handleChange(name, val) {
@@ -53,7 +53,7 @@ class Register extends Component {
                         <Radio checked={this.usertype == "dashen"} onChange={(val) => this.handleChange("usertype", "dashen")}>老板</Radio>
                     </Form.Item>
                     <FormItem>
-                        <Button color='primary' fill='solid' block onClick={() => this.registe()}>注&nbsp;&nbsp;&nbsp;册 </Button>
+                        <Button color='primary' fill='solid' block onClick={() => this.toRegiste()}>注&nbsp;&nbsp;&nbsp;册 </Button>
                     </FormItem>
                     <FormItem>
                         <Button block onClick={() => this.toLogin()}>已有账户</Button>
@@ -63,4 +63,5 @@ class Register extends Component {
         )
     }
 }
-export default Register
+// ???
+export default connect(state => ({}), { register })(Register)
