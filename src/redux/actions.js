@@ -36,19 +36,19 @@ export const register = (user) => {
 export const login = (user) => {
     const { username, password, password2, type } = user
     if (!username) {
-        return errorMsg('2次密码要一致')
+        return getErrorMsgAction('2次密码要一致')
     } else if (password != password2) {
-        return errorMsg('2次密码要一致')
+        return getErrorMsgAction('2次密码要一致')
     }
     return async dispatch => {
         const response = await reqLogin(user)
         const result = response.data
         if (result.code === 0) {
             // 发送成功
-            dispatch(authSucess(result.data))
+            dispatch(getAuthSucessAction(result.data))
         } else {
             // 失败
-            dispatch(errorMsg(result.msg))
+            dispatch(getErrorMsgAction(result.msg))
         }
     }
 }

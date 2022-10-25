@@ -20,8 +20,4 @@ function userReducers(state = initUser, action) {
     }
 }
 // 通过调用combineReducers返回一个合并的状态
-export default combineReducers(
-    {
-        userReducers
-    }
-)
+export default combineReducers({userReducers})
