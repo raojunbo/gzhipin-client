@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom'
 import Register from './containers/register/register'
 import Login from './containers/login/login'
 import Main from './containers/main/main'
-
+import './assets/css/error-msg.less'
 
 function App() {
   return (

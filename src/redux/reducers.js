@@ -1,18 +1,20 @@
 import { combineReducers } from 'redux'
 import { AUTH_SUCESS, ERROR_MSG } from './action-types'
 
-//user肯定是多组件共享的
+// 给user一个初始化的状态
 const initUser = {
-    username: '',
+    username: '', // 用户名
     type: '', // 用户类型
-    msg: '' // 错误提示信息
+    msg: '', // 错误提示信息
+    redirectTo: '' // 跳转的路径
 }
-// 尝试
-function userReducer(state = initUser, action) {
+
+// 改变user状态的reducer。store内部会维持user的状态。
+function user(state = initUser, action) {
     switch (action.type) {
         case AUTH_SUCESS:
             // 将action.data解构到state。并返回state
-            return { ...state, ...action.data }
+            return {...action.data, redirectTo:'/' }
         case ERROR_MSG:
             return { ...state, msg: action.data }
         default:
@@ -20,4 +22,4 @@ function userReducer(state = initUser, action) {
     }
 }
 // 通过调用combineReducers返回一个合并的状态
-export default combineReducers({userReducer})
+export default combineReducers({user})

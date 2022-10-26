@@ -5,7 +5,9 @@ import {
     Input,
     Button
 } from 'antd-mobile'
-import TopNavBar from "../../components/navbar/TopNavBar";
+
+
+import TopNavBar from "../../components/navbar/top_nav_bar";
 import Logo from "../../components/logo/logo";
 
 import { FormItem } from "antd-mobile/es/components/form/form-item";
@@ -18,8 +20,6 @@ class Login extends Component {
             password: '',
         }
     }
-    
-
     handleChange(name, val) {
         this.state[name] = val
     }
@@ -49,7 +49,6 @@ class Login extends Component {
                         <Button block onClick={() => this.toRegister() }>还没有账号</Button>
                     </FormItem>
                 </Form>
-
             </div>
         )
     }
