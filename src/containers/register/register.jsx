@@ -9,7 +9,8 @@ import TopNavBar from "../../components/navbar/TopNavBar";
 import Logo from "../../components/logo/logo";
 
 import { FormItem } from "antd-mobile/es/components/form/form-item";
-import { connect } from "react-redux"; // 这里是redux的内容
+
+import { connect } from "react-redux"; // 引入redux的connect
 import { register } from '../../redux/actions' // 引入redux的actions
 class Register extends Component {
     constructor(props) {
