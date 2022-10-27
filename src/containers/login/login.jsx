@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { useNavigate } from 'react-router-dom';
 import {
     NavBar,
     Form,
@@ -12,6 +13,10 @@ import Logo from "../../components/logo/logo";
 
 import { FormItem } from "antd-mobile/es/components/form/form-item";
 
+import { Navigate } from "react-router-dom";// 引入Navgiate
+import { connect } from "react-redux"; // 引入redux的connect
+import { login } from '../../redux/actions' // 引入redux的actions
+
 class Login extends Component {
     constructor(props) {
         super(props)
@@ -24,16 +29,25 @@ class Login extends Component {
         this.state[name] = val
     }
     toLogin() {
-        console.log(this.state)
+        this.props.login(this.state)
     }
     toRegister() {
-        this.props.history.replace("/register")
+        // 切换到register页面。好像不可
+        // this.props.history.replace("/register")
+        const navigate = useNavigate()
+        navigate('/register')
     }
     render() {
+        const { msg, redirectTo } = this.props.user
+        console.log("这是props.user msg=" + redirectTo + JSON.stringify(this.props.user))
+        if(redirectTo) {
+            return <Navigate to={redirectTo}/>
+        }
         return (
             <div>
                 <TopNavBar></TopNavBar>
                 <Logo />
+                {msg ? <p className='error-msg'>{msg}</p> : null}
                 <Form layout='horizontal'>
                     <Form.Item label='用户名:'>
                         <Input placeholder='请输入' onChange={(val) => this.handleChange("username", val)} />
@@ -41,16 +55,26 @@ class Login extends Component {
                     <Form.Item label='密&nbsp;&nbsp;&nbsp;码:'>
                         <Input placeholder='请输入' onChange={(val) => this.handleChange("password", val)} />
                     </Form.Item>
-                   
+
                     <FormItem>
                         <Button color='primary' fill='solid' block onClick={() => this.toLogin()}>登&nbsp;&nbsp;&nbsp;录 </Button>
                     </FormItem>
                     <FormItem>
-                        <Button block onClick={() => this.toRegister() }>还没有账号</Button>
+                        <Button block onClick={() => this.toRegister()}>还没有账号</Button>
                     </FormItem>
                 </Form>
             </div>
         )
     }
 }
-export default Login
+// export default Login
+
+const mapStateToProps = (state) => {
+    return { user: state.user }
+}
+// mapDispatchToProps 将action放置到该组件的props上，props上就能使用
+const mapDispatchToProps = {
+    login
+}
+// connect传进mapStateToProps， 传进mapDispatchToProps,返回一个容器组件。在将真实组件装Register放进入。
+export default connect(mapStateToProps,mapDispatchToProps)(Login)

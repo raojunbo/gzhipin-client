@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
 import {
     Form,
     Input,
@@ -12,8 +11,8 @@ import Logo from "../../components/logo/logo";
 
 import { FormItem } from "antd-mobile/es/components/form/form-item";
 
+import { Navigate } from "react-router-dom";
 import { connect } from "react-redux"; // 引入redux的connect
-
 import { register } from '../../redux/actions' // 引入redux的actions
 
 class Register extends Component {
