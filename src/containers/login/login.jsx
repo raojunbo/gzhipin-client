@@ -26,26 +26,32 @@ class Login extends Component {
         }
     }
     handleChange(name, val) {
-        this.state[name] = val
+        this.setState({
+            [name]: val
+        })
     }
     toLogin() {
+        // 调用props里的login的redux方法
         this.props.login(this.state)
     }
     toRegister() {
-        // 切换到register页面。好像不可
-        // this.props.history.replace("/register")
-        const navigate = useNavigate()
-        navigate('/register')
+        this.setState({ ...this.state, toRegister: true })
     }
     render() {
         const { msg, redirectTo } = this.props.user
-        console.log("这是props.user msg=" + redirectTo + JSON.stringify(this.props.user))
-        if(redirectTo) {
-            return <Navigate to={redirectTo}/>
+        console.log("这是Login props" + JSON.stringify(this.props))
+        console.log("这是Login state" + JSON.stringify(this.state))
+        // 登录成功后会给出路由跳转
+        if (redirectTo) {
+            return <Navigate to={redirectTo} />
+        }
+        // 修改了状态给出跳转
+        if (this.state.toRegister) {
+            return <Navigate to='/register' />
         }
         return (
             <div>
-                <TopNavBar></TopNavBar>
+                <TopNavBar title='硅谷直聘'></TopNavBar>
                 <Logo />
                 {msg ? <p className='error-msg'>{msg}</p> : null}
                 <Form layout='horizontal'>
@@ -77,4 +83,4 @@ const mapDispatchToProps = {
     login
 }
 // connect传进mapStateToProps， 传进mapDispatchToProps,返回一个容器组件。在将真实组件装Register放进入。
-export default connect(mapStateToProps,mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -22,32 +22,36 @@ class Register extends Component {
             username: '',
             password: '',
             password2: '',
-            usertype: "laoban"
+            usertype: "laoban",
         }
     }
     toRegiste() {
         // 因为connect 已经设置将register放到props上。方便通过action修改store的状态
+        console.log("这是Register state" + JSON.stringify(this.state))
         this.props.register(this.state)
     }
     toLogin() {
-        console.log(this.state)
-        this.history.push("/login")
+        this.setState({ ...this.state, toLogin: true })
     }
     handleChange(name, val) {
-        this.state[name] = val
+        this.setState({
+            [name]: val
+        })
     }
     render() {
-        const { type } = this.state
         const { msg, redirectTo } = this.props.user
-        console.log("这是props.user msg=" + redirectTo + JSON.stringify(this.props.user))
+        // console.log("这是Register props"  + JSON.stringify(this.props))
+        // console.log("这是Register state"  + JSON.stringify(this.state))
 
-        if(redirectTo) {
-            // 有值就需要重定向到指定的地方
-            return <Navigate to={redirectTo}/>
+        if (redirectTo) {
+            return <Navigate to={redirectTo} />
+        }
+        if (this.state.toLogin) {
+            return <Navigate to='/login' />
         }
         return (
             <div>
-                <TopNavBar></TopNavBar>
+                <TopNavBar title='硅谷直聘'></TopNavBar>
                 <Logo />
                 {msg ? <p className='error-msg'>{msg}</p> : null}
                 <Form layout='horizontal'>
@@ -61,9 +65,9 @@ class Register extends Component {
                         <Input placeholder='请输入' onChange={(val) => this.handleChange("password2", val)} />
                     </Form.Item>
                     <Form.Item label='用户类型:'>
-                        <Radio checked={this.usertype == "laoban"} onChange={(val) => this.handleChange("usertype", "laoban")}>大神</Radio>
+                        <Radio checked={this.state.usertype === "dashen"} onChange={(val) => this.handleChange("usertype", "dashen")}>大神</Radio>
                         &nbsp;&nbsp;
-                        <Radio checked={this.usertype == "dashen"} onChange={(val) => this.handleChange("usertype", "dashen")}>老板</Radio>
+                        <Radio checked={this.state.usertype === "laoban"} onChange={(val) => this.handleChange("usertype", "laoban")}>老板</Radio>
                     </Form.Item>
                     <FormItem>
                         <Button color='primary' fill='solid' block onClick={() => this.toRegiste()}>注&nbsp;&nbsp;&nbsp;册 </Button>
@@ -89,4 +93,4 @@ const mapDispatchToProps = {
     register
 }
 // connect传进mapStateToProps， 传进mapDispatchToProps,返回一个容器组件。在将真实组件装Register放进入。
-export default connect(mapStateToProps,mapDispatchToProps)(Register)
+export default connect(mapStateToProps, mapDispatchToProps)(Register)
