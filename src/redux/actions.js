@@ -1,6 +1,11 @@
 import { reqRegister, reqLogin, reqUpdateUser } from '../api/index'
 
-import { AUTH_SUCESS, ERROR_MSG } from './action-types'
+import {
+    AUTH_SUCESS,
+    ERROR_MSG,
+    RECEIVE_USER,
+    RESET_USER
+} from './action-types'
 
 // 通过向store中方action。来改变store中的状态。
 const getAuthSucessAction = (user) => {
@@ -8,6 +13,12 @@ const getAuthSucessAction = (user) => {
 }
 const getErrorMsgAction = (msg) => {
     return { type: ERROR_MSG, data: msg }
+}
+const getReceiveUserAction = (user) => {
+    return { type: RECEIVE_USER, data: user }
+}
+const resetUserAction = (msg) => {
+    return { type: RESET_USER, data: msg }
 }
 
 export const register = (user) => {
@@ -22,7 +33,7 @@ export const register = (user) => {
     return async dispatch => {
         // 如果有等待，说明该函数应该是异步函数
         const response = await reqRegister({ username, password, type })
-        const result = response.data    
+        const result = response.data
         if (result.code === 0) {
             // 发送成功
             dispatch(getAuthSucessAction(result.data))
@@ -51,6 +62,18 @@ export const login = (user) => {
         } else {
             // 失败
             dispatch(getErrorMsgAction(result.msg))
+        }
+    }
+}
+
+export const updateUser = () => {
+    return async dispatch => {
+        const response = await reqUpdateUser(user)
+        const result = response.data
+        if (result.code == 0) {
+            dispatch(getReceiveUserAction(result.data))
+        } else {
+            dispatch(resetUserAction(result.msg))
         }
     }
 }
