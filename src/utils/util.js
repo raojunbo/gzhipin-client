@@ -1,7 +1,7 @@
 // 返回路由路径
-export function getRedirectTo(type, header) {
+export function getRedirectTo(usertype, header) {
     let path = ''
-    if (type === 'laoban' ) {
+    if (usertype === 'laoban') {
         path = '/laoban'
     } else {
         path = '/dashen'

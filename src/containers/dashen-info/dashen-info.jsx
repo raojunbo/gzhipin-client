@@ -34,10 +34,10 @@ class DashenInfo extends Component {
         })
     }
     render() {
-        const { header, type } = this.props.user
+        const { header, usertype } = this.props.user
         // 若果信息已经完善过
         if (header) {
-            const path = type === 'dashen' ? '/dashen' : '/laoban'
+            const path = usertype === 'dashen' ? '/dashen' : '/laoban'
             return <Navigate to={path} />
         }
         return (

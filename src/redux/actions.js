@@ -25,7 +25,7 @@ const resetUserAction = (msg) => {
 
 export const register = (user) => {
     // user解构赋值
-    const { username, password, password2, type } = user
+    const { username, password, password2, usertype } = user
     if (!username) {
         return getErrorMsgAction('用户名不能为空')
     }
@@ -34,7 +34,7 @@ export const register = (user) => {
     }
     return async dispatch => {
         // 如果有等待，说明该函数应该是异步函数
-        const response = await reqRegister({ username, password, type })
+        const response = await reqRegister({ username, password, usertype })
         const result = response.data
         if (result.code === 0) {
             // 发送成功
