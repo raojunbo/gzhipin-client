@@ -40,9 +40,7 @@ class Register extends Component {
     }
     render() {
         const { msg, redirectTo } = this.props.user
-        // console.log("这是Register props"  + JSON.stringify(this.props))
-        // console.log("这是Register state"  + JSON.stringify(this.state))
-
+        
         if (redirectTo) {
             return <Navigate to={redirectTo} />
         }

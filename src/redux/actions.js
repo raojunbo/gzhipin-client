@@ -21,6 +21,8 @@ const resetUserAction = (msg) => {
     return { type: RESET_USER, data: msg }
 }
 
+// 当收到数据后，发送action
+
 export const register = (user) => {
     // user解构赋值
     const { username, password, password2, type } = user
@@ -66,13 +68,16 @@ export const login = (user) => {
     }
 }
 
-export const updateUser = () => {
+export const updateUser = (user) => {
     return async dispatch => {
         const response = await reqUpdateUser(user)
         const result = response.data
+        console.log("这是结果" + result.data)
         if (result.code == 0) {
+            // 更新成功
             dispatch(getReceiveUserAction(result.data))
         } else {
+            // 更新失败
             dispatch(resetUserAction(result.msg))
         }
     }

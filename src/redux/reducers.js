@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { AUTH_SUCESS, ERROR_MSG } from './action-types'
+import { AUTH_SUCESS, ERROR_MSG, RECEIVE_USER, RESET_USER } from './action-types'
 import {getRedirectTo} from '../utils/util'
 
 // 给user一个初始化的状态
@@ -19,6 +19,10 @@ function user(state = initUser, action) {
             return {...action.data, redirectTo:getRedirectTo(type, header) }
         case ERROR_MSG:
             return { ...state, msg: action.data }
+        case RECEIVE_USER:
+            return action.data
+        case RESET_USER:
+            return {...initUser, msg: action.data}
         default:
             return state
     }

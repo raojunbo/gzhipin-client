@@ -9,7 +9,12 @@ import {
     Button,
     TextArea
 } from 'antd-mobile'
+
+import { Navigate } from "react-router-dom";
+
 import { FormItem } from "antd-mobile/es/components/form/form-item";
+
+import { updateUser } from '../../redux/actions'
 
 class LaobanInfo extends Component {
     constructor(props) {
@@ -23,7 +28,7 @@ class LaobanInfo extends Component {
         }
     }
     toSave() {
-        console.log("这是LaobanInfo" + JSON.stringify(this.state))
+        this.props.updateUser(this.state)
     }
     handleChange(name, val) {
         this.setState({
@@ -36,6 +41,12 @@ class LaobanInfo extends Component {
         })
     }
     render() {
+        const { header, type } = this.props.user
+        // 若果信息已经完善过
+        if (header) {
+            const path = type === 'dashen' ? '/dashen' : '/laoban'
+            return <Navigate to={path} />
+        }
         return (
             <div>
                 <TopNavBar title='老板信息完善'></TopNavBar>
@@ -54,7 +65,7 @@ class LaobanInfo extends Component {
                         <TextArea placeholder='请输入职位要求' onChange={(val) => this.handleChange('info', val)} autoSize={{ minRows: 3, maxRows: 5 }} />
                     </Form.Item>
                     {/* <FormItem> */}
-                       
+
                     {/* </FormItem> */}
                     <Button block color='primary' onClick={() => this.toSave()}>保存</Button>
                 </Form>
@@ -65,10 +76,10 @@ class LaobanInfo extends Component {
 // export default LaobanInfo
 const mapStateToProps = (state) => {
     return {
-        // user: state.user 
+        user: state.user
     }
 }
 const mapDispatchToProps = {
-    // register
+    updateUser
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LaobanInfo)

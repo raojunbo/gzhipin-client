@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux"; 
 import TopNavBar from "../../components/navbar/top_nav_bar";
 import HeaderSelector from "../../components/head-selector/header-selector";
-
+import { Navigate } from "react-router-dom";
 import {
     Form,
     Input,
@@ -10,7 +10,7 @@ import {
     TextArea
 } from 'antd-mobile'
 import { FormItem } from "antd-mobile/es/components/form/form-item";
-
+import { updateUser } from '../../redux/actions'
 class DashenInfo extends Component {
     constructor(props) {
         super(props)
@@ -26,7 +26,7 @@ class DashenInfo extends Component {
         })
     }
     toSave() {
-        console.log("这是LaobanInfo" + JSON.stringify(this.state))
+        this.props.updateUser(this.state)
     }
     setHeader = (header) => {
         this.setState({
@@ -34,6 +34,12 @@ class DashenInfo extends Component {
         })
     }
     render() {
+        const { header, type } = this.props.user
+        // 若果信息已经完善过
+        if (header) {
+            const path = type === 'dashen' ? '/dashen' : '/laoban'
+            return <Navigate to={path} />
+        }
         return (
             <div>
                 <TopNavBar title='大神信息完善'></TopNavBar>
@@ -54,13 +60,14 @@ class DashenInfo extends Component {
         )
     }
 }
-// export default  DashenInfo
+// 状态回来后放入props里
 const mapStateToProps = (state) => {
     return {
-        // user: state.user 
+        user: state.user 
     }
 }
+// 供调用的异步方法
 const mapDispatchToProps = {
-    // register
+    updateUser
 }
 export default connect(mapStateToProps, mapDispatchToProps)(DashenInfo)
