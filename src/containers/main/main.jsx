@@ -13,10 +13,10 @@ import { getRedirectTo } from '../../utils/util'
  *      如果根路径，根据user的type来和header计算重定向的路径。
  */
 class Main extends Component {
-    componentDidMount(){
+    componentDidMount() {
         const userid = Cookies.get('userid')
-        const {_id} = this.props.user
-        if(userid && !_id) {
+        const { _id } = this.props.user
+        if (userid && !_id) {
             // 发送异步请求，获取user
             console.log('发送请求')
         }
@@ -39,8 +39,8 @@ class Main extends Component {
             // 如果用户有_id，且要跳转路径是'/'。根据用户类型
             // let path = this.props.location.pathname
             // if (path === '/') {
-                // let path = getRedirectTo(user.type, user.header)
-                // return <Navigate to={path} />
+            // let path = getRedirectTo(user.type, user.header)
+            // return <Navigate to={path} />
             // }
         }
         // 匹配某一个路由并显示
@@ -54,11 +54,19 @@ class Main extends Component {
         )
     }
 }
+/*
+ redux是本身是脱离于react框架的。提供一个全局状态共享的路径。
+ redux的connect实际上是给原有组件包装一个容器。
+ 1. 状态发生变化时可以局部更新这个组件。
+ 2. 可以通过dispatch去改变状态的值
+
+ Flutter的provide
+*/
 const mapStateToProps = (state) => {
     return { user: state.user }
 }
 
 const mapDispatchToProps = {
-
+    // 发起异步的地方
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Main)
