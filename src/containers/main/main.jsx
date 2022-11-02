@@ -34,7 +34,7 @@ class Main extends Component {
         // 如果user没有_id，返回null。暂时不做任何显示
         if (!user._id) {
             console.log("走!_id")
-            return <Navigate to='/login' />
+            // return <Navigate to='/login' />
         } else {
             // 如果用户有_id，且要跳转路径是'/'。根据用户类型
             // let path = this.props.location.pathname

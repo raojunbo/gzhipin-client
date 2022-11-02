@@ -82,3 +82,16 @@ export const updateUser = (user) => {
         }
     }
 }
+export const getUser = (user) => {
+    return async dispatch => {
+        const response = await reqUser(user)
+        const result = response.data
+        console.log("这是结果" + result.data)
+        if(result.code == 0) {
+            dispatch(getReceiveUserAction(result.data))
+        } else {
+            dispatch(resetUserAction(result.msg))
+        }
+
+    }
+}
