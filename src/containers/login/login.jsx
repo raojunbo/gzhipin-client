@@ -51,7 +51,7 @@ class Login extends Component {
         }
         return (
             <div>
-                <TopNavBar title='硅谷直聘'></TopNavBar>
+                <TopNavBar>硅谷直聘</TopNavBar>
                 <Logo />
                 {msg ? <p className='error-msg'>{msg}</p> : null}
                 <Form layout='horizontal'>

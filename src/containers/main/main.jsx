@@ -12,6 +12,10 @@ import Cookies from 'js-cookie'
 
 import { getRedirectTo } from '../../utils/util'
 import { getUser } from '../../redux/actions' // 引入redux的actions
+
+
+import BottomTabbar from "../bottom-tabbar/bottom-tabbar";
+
 /**
  * 1.实现自动的登录
  *      如果cookie中有userid，发出请求获取对应的user。
@@ -80,17 +84,18 @@ class Main extends Component {
         // 匹配了路由就显示
         return (
             <div>
-                
+
                 <Routes>
                     <Route path='/dasheninfo' element={<DashenInfo />}></Route>
                     <Route path='/laobaninfo' element={<LaobanInfo />}></Route>
-                    
-                    <Route path="/dashen" element={<Dashen />}></Route>
-                    <Route path="/laoban" element={<Laoban />}></Route>
-                    <Route path="/person" element={<Person />}></Route>
-                    <Route path="/message" element={<Message />}></Route>
-                    <Route path="/notfound" element={<NotFound />}></Route>
+
+                    {/* <Route path="/dashen" element={<Dashen />}></Route> */}
+                    {/* <Route path="/laoban" element={<Laoban />}></Route> */}
+                    {/* <Route path="/person" element={<Person />}></Route> */}
+                    {/* <Route path="/message" element={<Message />}></Route> */}
+                    {/* <Route path="/notfound" element={<NotFound />}></Route> */}
                 </Routes>
+                <BottomTabbar navList={navList}></BottomTabbar>
             </div>
         )
     }
