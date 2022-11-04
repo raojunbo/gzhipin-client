@@ -18,7 +18,7 @@ class Main extends Component {
         const { _id } = this.props.user
         if (userid && !_id) {
             // 发送异步请求，获取user
-            console.log('发送请求')
+            console.log('开始获取用户信息发送请求')
         }
     }
     render() {
@@ -28,20 +28,22 @@ class Main extends Component {
             console.log("走!userid")
             return <Navigate to='/login' />
         }
-
+        let path = this.props.location.pathname
+        console.log("开始了" + path)
         // 如果已经有过userid
         const { user } = this.props
         // 如果user没有_id，返回null。暂时不做任何显示
         if (!user._id) {
+            // 让在component中走自动登录
             console.log("走!_id")
-            return <Navigate to='/login' />
         } else {
             // 如果用户有_id，且要跳转路径是'/'。根据用户类型
-            // let path = this.props.location.pathname
-            // if (path === '/') {
-            // let path = getRedirectTo(user.type, user.header)
-            // return <Navigate to={path} />
-            // }
+            // let path = useLocation().pathname // 当前正在定位到哪里
+            let path = this.props.location.pathname
+            if (path === '/') {
+                let path = getRedirectTo(user.type, user.header)
+                return <Navigate to={path} />
+            }
         }
         // 匹配某一个路由并显示
         return (
