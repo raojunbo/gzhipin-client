@@ -1,4 +1,9 @@
-import { reqRegister, reqLogin, reqUpdateUser } from '../api/index'
+import {
+    reqRegister,
+    reqLogin,
+    reqUpdateUser,
+    reqUser
+} from '../api/index'
 
 import {
     AUTH_SUCESS,
@@ -78,6 +83,19 @@ export const updateUser = (user) => {
             dispatch(getReceiveUserAction(result.data))
         } else {
             // 更新失败
+            dispatch(resetUserAction(result.msg))
+        }
+    }
+}
+
+export const getUser = () => {
+    return async dispatch => {
+        const response = await reqUser()
+        const result = response.data
+        console.log("这是结果" + JSON.stringify(result.data))
+        if (result.code == 0) {
+            dispatch(getReceiveUserAction(result.data))
+        } else {
             dispatch(resetUserAction(result.msg))
         }
     }

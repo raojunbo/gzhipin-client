@@ -17,7 +17,7 @@ import './top_nav_bar.less'
 export default class TopNavBar extends Component {
     render() {
         return (
-            <NavBar className="navBar top-nav-bar">{this.props.title}</NavBar>
+            <NavBar className="navBar top-nav-bar"></NavBar>
         )
     }
 }

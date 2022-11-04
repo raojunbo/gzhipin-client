@@ -49,7 +49,7 @@ class LaobanInfo extends Component {
         }
         return (
             <div>
-                <TopNavBar title='老板信息完善'></TopNavBar>
+                <TopNavBar>老板信息完善</TopNavBar>
                 <HeaderSelector setHeader={this.setHeader}></HeaderSelector>
                 <Form layout='horizontal'>
                     <Form.Item label='招聘职位:'>

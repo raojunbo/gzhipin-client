@@ -40,7 +40,7 @@ class Register extends Component {
     }
     render() {
         const { msg, redirectTo } = this.props.user
-        
+
         if (redirectTo) {
             return <Navigate to={redirectTo} />
         }
@@ -49,7 +49,7 @@ class Register extends Component {
         }
         return (
             <div>
-                <TopNavBar title='硅谷直聘'></TopNavBar>
+                <TopNavBar>硅谷直聘</TopNavBar>
                 <Logo />
                 {msg ? <p className='error-msg'>{msg}</p> : null}
                 <Form layout='horizontal'>

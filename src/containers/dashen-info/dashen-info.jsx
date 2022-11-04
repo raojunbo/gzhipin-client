@@ -42,7 +42,7 @@ class DashenInfo extends Component {
         }
         return (
             <div>
-                <TopNavBar title='大神信息完善'></TopNavBar>
+                <TopNavBar>大神信息完善</TopNavBar>
                 <HeaderSelector setHeader={this.setHeader}></HeaderSelector>
                 <Form layout='horizontal'>
                     <Form.Item label='求职岗位:'>
