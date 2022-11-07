@@ -43,6 +43,8 @@ class Main extends Component {
             console.log("走!userid")
             return <Navigate to='/login' />
         }
+        // let path = this.props.location.pathname
+        // console.log("开始了" + path)
         // 如果已经有过userid
         const { user } = this.props
         if (!user._id) {
@@ -69,7 +71,7 @@ class Main extends Component {
         // 当前选中的状态
         // let { currentContentPath } = this.state
         // if (currentContentPath.length != 0) {
-        console.log("来这里了,这里有问题")
+        // console.log("来这里了,这里有问题")
         // return <Navigate to='/login' />
         // return <Navigate to='message' />
 
