@@ -1,20 +1,13 @@
 import React, { Component } from "react";
-import { Navigate, Routes, Route } from 'react-router-dom'
-import LaobanInfo from "../laoban-info/laoban-info";
-import DashenInfo from "../dashen-info/dashen-info";
-import Dashen from "../dashen/dashen";
-import Laoban from "../laoban/laoban";
-import Message from "../message/message";
-import Person from "../person/person";
-import NotFound from "../../components/notfound/notfound";
+import { Navigate, Routes, Route, Outlet } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Cookies from 'js-cookie'
 
 import { getRedirectTo } from '../../utils/util'
 import { getUser } from '../../redux/actions' // 引入redux的actions
 
-
-import BottomTabbar from "../bottom-tabbar/bottom-tabbar";
+import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
+import BottomTabbar from "../../components/bottom-tabbar/bottom-tabbar";
 
 /**
  * 1.实现自动的登录
@@ -24,42 +17,25 @@ import BottomTabbar from "../bottom-tabbar/bottom-tabbar";
  *      如果根路径，根据user的type来和header计算重定向的路径。
  */
 class Main extends Component {
-    navList = [
-        {
-            path: '/laoban',
-            component: Laoban,
-            title: '大神列表',
-            icon: 'dashen',
-            text: '大神'
-        },
-        {
-            path: '/dashen',
-            component: Dashen,
-            title: '老板列表',
-            icon: 'laoban',
-            text: '老板'
-        },
-        {
-            path: '/message',
-            component: Message,
-            title: '老板列表',
-            icon: 'message',
-            text: '消息'
-        },
-        {
-            path: '/person',
-            component: Person,
-            title: '个人中心',
-            icon: 'person',
-            text: '个人'
-        }
-    ]
+    constructor(props) {
+        super(props)
+        // this.state = {
+        //     currentContentPath: 'message',
+        // }
+
+    }
     componentDidMount() {
         const userid = Cookies.get('userid')
         const { _id } = this.props.user
         if (userid && !_id) {
             this.props.getUser()
         }
+    }
+    onTabChanged(path) {
+        // console.log("这是改变" + JSON.stringify(this.state))
+        // this.setState({
+        // currentContentPath: path
+        // })
     }
     render() {
         const userid = Cookies.get('userid')
@@ -69,9 +45,8 @@ class Main extends Component {
         }
         // 如果已经有过userid
         const { user } = this.props
-        // 如果user没有_id，返回null。暂时不做任何显示
         if (!user._id) {
-            console.log("走!_id")
+            console.log("走!_id  暂时不做任何显示，让其去走网络请求")
         } else {
             // 这里地方有问题
             // 如果用户有_id，且要跳转路径是'/'。根据用户类型
@@ -81,21 +56,42 @@ class Main extends Component {
             //     return <Navigate to={path} />
             // }
         }
+        // let location = useLocation();
+        // const navigate = useNavigate()
+        // 只有路由组件。才能使用loaction
+        // console.log("这是当前路径" + JSON.stringify( location.pathname))
+
+        // if (currentNav) {
+
+        // }
+        // let path = this.props.location.pathname
+        // console.log("这是path" + path)
+        // 当前选中的状态
+        // let { currentContentPath } = this.state
+        // if (currentContentPath.length != 0) {
+        console.log("来这里了,这里有问题")
+        // return <Navigate to='/login' />
+        // return <Navigate to='message' />
+
+        // return <Navigate to={currentContentPath} />
+        // }
+
+        // 显示下面的tab
+        let displayLaobanTab = true
+        if (user.usertype === 'laoban') {
+            displayLaobanTab = false
+        } else {
+            displayLaobanTab = true
+        }
+
+        // const {navList} = this.props
+
         // 匹配了路由就显示
         return (
             <div>
-
-                <Routes>
-                    <Route path='/dasheninfo' element={<DashenInfo />}></Route>
-                    <Route path='/laobaninfo' element={<LaobanInfo />}></Route>
-
-                    {/* <Route path="/dashen" element={<Dashen />}></Route> */}
-                    {/* <Route path="/laoban" element={<Laoban />}></Route> */}
-                    {/* <Route path="/person" element={<Person />}></Route> */}
-                    {/* <Route path="/message" element={<Message />}></Route> */}
-                    {/* <Route path="/notfound" element={<NotFound />}></Route> */}
-                </Routes>
-                <BottomTabbar navList={navList}></BottomTabbar>
+                <TopNavBar title='硅谷直聘'></TopNavBar>
+                <Outlet></Outlet>
+                <BottomTabbar displayLaobanTab={displayLaobanTab} onTabChanged={(val) => this.onTabChanged(val)}> </BottomTabbar>
             </div>
         )
     }

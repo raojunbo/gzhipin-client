@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"; // 引入redux的connect
-import TopNavBar from "../../components/navbar/top_nav_bar";
+import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
 import HeaderSelector from "../../components/head-selector/header-selector";
 
 import {

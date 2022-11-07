@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"; 
-import TopNavBar from "../../components/navbar/top_nav_bar";
+import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
 import HeaderSelector from "../../components/head-selector/header-selector";
 import { Navigate } from "react-router-dom";
+
 import {
     Form,
     Input,
     Button,
     TextArea
 } from 'antd-mobile'
+
 import { FormItem } from "antd-mobile/es/components/form/form-item";
 import { updateUser } from '../../redux/actions'
 class DashenInfo extends Component {

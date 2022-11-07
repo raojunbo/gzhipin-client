@@ -1,8 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux"; // 引入redux的connect
 import { List, Grid, Image } from "antd-mobile";
-
-import styles from './header-selector.less'
 import ProTypes from 'prop-types'
 export default class HeaderSelector extends Component {
     static propTypes = {

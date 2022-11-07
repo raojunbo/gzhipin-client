@@ -8,7 +8,7 @@ import {
 } from 'antd-mobile'
 
 
-import TopNavBar from "../../components/navbar/top_nav_bar";
+import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
 import Logo from "../../components/logo/logo";
 
 import { FormItem } from "antd-mobile/es/components/form/form-item";
