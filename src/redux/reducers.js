@@ -41,6 +41,5 @@ function userList(state=initUserList, action) {
             return state
     }
 }
-
-// 通过调用combineReducers返回一个合并的状态
-export default combineReducers({user})
+// Reducers是收到数据后的函数处理
+export default combineReducers({user, userList})

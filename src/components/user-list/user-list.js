@@ -8,7 +8,7 @@ import React from 'react'
 
 export default function UserList(props) {
     const { userList } = props
-    console.log( JSON.stringify(userList))
+    console.log("这是结果" + JSON.stringify(userList))
     return (
         <div>
             {

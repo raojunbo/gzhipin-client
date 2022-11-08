@@ -110,7 +110,7 @@ export const getUserList = (usertype) => {
     return async dispatch => {
         const response = await reqGetUserList(usertype)
         const result = response.data
-        console.log("这是结果" + JSON.stringify(result.data))
+        console.log("这是结果" + JSON.stringify(result))
         if (result.code == 0) {
             // redux 分发同步action
             dispatch(getUserListAction(result.data))

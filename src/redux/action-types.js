@@ -5,4 +5,4 @@ export const RECEIVE_USER = 'reveive_user'
 export const RESET_USER = 'reset_user'
 
 // USERLIST
-export const RECEIVE_USER_LIST = 'reset_user_list'
+export const RECEIVE_USER_LIST = 'receive_user_list'

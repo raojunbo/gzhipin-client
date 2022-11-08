@@ -7,4 +7,4 @@ export const reqUpdateUser = (user) => ajax('/update', user,'POST')
 
 export const reqUser = () => ajax('/user')
 
-export const reqGetUserList = (usertype) =>  ajax('/update',{usertype})
+export const reqGetUserList = (usertype) =>  ajax('/getUserList',{usertype})

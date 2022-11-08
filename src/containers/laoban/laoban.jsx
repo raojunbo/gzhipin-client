@@ -18,10 +18,7 @@ class LaoBan extends Component {
         this.props.getUserList('dashen')
     }
     render() {
-        const hadData = this.props.userList
-        return (
-            <UserList userList={this.props.userList}></UserList>
-        );
+        return <UserList userList={this.props.userList}></UserList>
     }
 }
 
