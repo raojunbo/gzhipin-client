@@ -2,17 +2,20 @@ import {
     reqRegister,
     reqLogin,
     reqUpdateUser,
-    reqUser
+    reqUser,
+    reqGetUserList
 } from '../api/index'
+import UserList from '../components/user-list/user-list'
 
 import {
     AUTH_SUCESS,
     ERROR_MSG,
     RECEIVE_USER,
-    RESET_USER
+    RESET_USER,
+    RECEIVE_USER_LIST
 } from './action-types'
 
-// 通过向store中方action。来改变store中的状态。
+// 通过向store中发action。来改变store中的状态。
 const getAuthSucessAction = (user) => {
     return { type: AUTH_SUCESS, data: user }
 }
@@ -22,8 +25,11 @@ const getErrorMsgAction = (msg) => {
 const getReceiveUserAction = (user) => {
     return { type: RECEIVE_USER, data: user }
 }
-const resetUserAction = (msg) => {
+export const resetUserAction = (msg) => {
     return { type: RESET_USER, data: msg }
+}
+const getUserListAction = (userList) => {
+    return {type:RECEIVE_USER_LIST, data: userList }
 }
 
 // 当收到数据后，发送action
@@ -97,6 +103,17 @@ export const getUser = () => {
             dispatch(getReceiveUserAction(result.data))
         } else {
             dispatch(resetUserAction(result.msg))
+        }
+    }
+}
+export const getUserList = (usertype) => {
+    return async dispatch => {
+        const response = await reqGetUserList(usertype)
+        const result = response.data
+        console.log("这是结果" + JSON.stringify(result.data))
+        if (result.code == 0) {
+            // redux 分发同步action
+            dispatch(getUserListAction(result.data))
         }
     }
 }

@@ -1,12 +1,15 @@
 import React, { Component } from "react";
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import UserList from "../../components/user-list/user-list";
 class DaShen extends Component {
     constructor(props) {
         super(props);
     }
     state = {}
     render() {
-        return (<div>dashen</div>);
+        return (
+            <UserList userList={this.props.userList}></UserList>
+        );
     }
 }
 

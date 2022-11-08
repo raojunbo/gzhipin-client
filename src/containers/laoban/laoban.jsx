@@ -1,22 +1,35 @@
 import React, { Component } from "react";
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import UserList from "../../components/user-list/user-list";
+import { getUserList } from '../../redux/actions'
+
+import {
+    Form,
+    Input,
+    Button,
+    TextArea
+} from 'antd-mobile'
+
 class LaoBan extends Component {
     constructor(props) {
         super(props);
     }
-    state = {}
+    componentDidMount() {
+        this.props.getUserList('dashen')
+    }
     render() {
+        const hadData = this.props.userList
         return (
-            <div>laoban</div>
+            <UserList userList={this.props.userList}></UserList>
         );
     }
 }
 
 const mapStateToProps = (state) => {
-    return { user: state.user }
+    return { userList: state.userList }
 }
 
 const mapDispatchToProps = {
-
+    getUserList
 }
 export default connect(mapStateToProps, mapDispatchToProps)(LaoBan)

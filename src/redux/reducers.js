@@ -1,5 +1,9 @@
 import { combineReducers } from 'redux'
-import { AUTH_SUCESS, ERROR_MSG, RECEIVE_USER, RESET_USER } from './action-types'
+import { AUTH_SUCESS, 
+    ERROR_MSG, 
+    RECEIVE_USER, 
+    RESET_USER, 
+    RECEIVE_USER_LIST } from './action-types'
 import {getRedirectTo} from '../utils/util'
 
 // 给user一个初始化的状态
@@ -23,6 +27,16 @@ function user(state = initUser, action) {
             return action.data
         case RESET_USER:
             return {...initUser, msg: action.data}
+        default:
+            return state
+    }
+}
+
+const initUserList = []
+function userList(state=initUserList, action) {
+    switch (action.type) {
+        case RECEIVE_USER_LIST:
+            return  action.data
         default:
             return state
     }

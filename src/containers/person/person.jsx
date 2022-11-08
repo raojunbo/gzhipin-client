@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import {
-    Form,
-    Input,
-    Radio,
     Dialog,
     Button,
     Image,
     List,
     Result
 } from 'antd-mobile'
+
+import { resetUserAction } from '../../redux/actions'
+import Cookies from 'js-cookie'
 
 function CustomHeaderImage(props) {
     const { imagename } = props
@@ -25,31 +25,13 @@ class Person extends Component {
         super(props);
     }
     logout() {
-        Dialog.show(
-            {
-            title: '温馨提示',
-            content: '退出登录吗？',
-            closeOnAction: true,
-            onConfirm: () => {
-                console.log('点击确认了')
+        Dialog.confirm({
+            content: '是否退出登录',
+            onConfirm: async () => {
+                console.log("收到确认")
+                Cookies.remove('userid')
+                this.props.resetUserAction()
             },
-            onCancel:() => {
-                console.log('点击取消')
-            },
-            actions: [
-                [
-                    {
-                        key: 'cancel',
-                        text: '取消',
-                    },
-                    {
-                        key: 'sure',
-                        text: '删除',
-                        bold: true,
-                        danger: true,
-                    },
-                ]
-            ],
         })
     }
     render() {
@@ -80,6 +62,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-
+    resetUserAction
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Person)
