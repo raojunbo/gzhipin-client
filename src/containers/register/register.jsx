@@ -42,6 +42,7 @@ class Register extends Component {
         const { msg, redirectTo } = this.props.user
 
         if (redirectTo) {
+            // 表示在当前路由的基础上进行跳转
             return <Navigate to={redirectTo} />
         }
         if (this.state.toLogin) {

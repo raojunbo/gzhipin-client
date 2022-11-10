@@ -7,9 +7,14 @@ import NotFound from '../components/notfound/notfound'
 import Laoban from '../containers/laoban/laoban'
 import Person from '../containers/person/person'
 import Message from '../containers/message/message'
+import DashenInfo from '../containers/dashen-info/dashen-info'
+import LaobanInfo from '../containers/laoban-info/laoban-info'
 // 全局路由配置入口
 export default [
-    // 根组件
+    {
+        path: '/',
+        element: <Navigate to='/main' />
+    },
     {
         path: '/register',
         element: <Register />
@@ -41,20 +46,17 @@ export default [
             },
             {
                 path: 'dasheninfo',
-                element: <Message />
+                element: <DashenInfo />
             },
             {
                 path: 'laobaninfo',
-                element: <Message />
+                element: <LaobanInfo />
             }
         ]
     },
+   
     {
-        path: '/',
-        element: <Navigate to='/main' />
-    },
-    {
-        path: '/notfound',
+        path: '*',
         element: <NotFound />
     },
 ]

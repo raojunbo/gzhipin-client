@@ -1,5 +1,13 @@
 import React from 'react'
-
+import {
+    // Dialog,
+    // Button,
+    // Image,
+    // List,
+    // Result
+    Card
+} from 'antd-mobile'
+import { func } from 'prop-types'
 
 // export default class HeaderSelector extends Component {
 //     static propTypes = {
@@ -9,11 +17,16 @@ import React from 'react'
 export default function UserList(props) {
     const { userList } = props
     console.log("这是结果" + JSON.stringify(userList))
+    function onClick() {
+        console.log("这是点击效果")
+    }
     return (
         <div>
             {
                 userList.map((user, index) => (
-                    <div>{user.username}</div>
+                    <Card onClick={onClick}>
+                        <div>{user.username}</div>
+                    </Card>
                 ))
             }
         </div>

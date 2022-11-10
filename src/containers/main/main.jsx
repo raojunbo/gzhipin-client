@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Navigate, Routes, Route, Outlet } from 'react-router-dom'
+import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Cookies from 'js-cookie'
 
@@ -8,6 +8,7 @@ import { getUser } from '../../redux/actions' // 引入redux的actions
 
 import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
 import BottomTabbar from "../../components/bottom-tabbar/bottom-tabbar";
+import UserList from "../../components/user-list/user-list";
 
 /**
  * 1.实现自动的登录
@@ -43,40 +44,18 @@ class Main extends Component {
             console.log("走!userid")
             return <Navigate to='/login' />
         }
-        // let path = this.props.location.pathname
-        // console.log("开始了" + path)
-        // 如果已经有过userid
         const { user } = this.props
         if (!user._id) {
             console.log("走!_id  暂时不做任何显示，让其去走网络请求")
-        } else {
-            // 这里地方有问题
-            // 如果用户有_id，且要跳转路径是'/'。根据用户类型
-            // let path = this.props.location.pathname
-            // if (path === '/') {
-            //     let path = getRedirectTo(user.type, user.header)
-            //     return <Navigate to={path} />
-            // }
+            return null
         }
-        // let location = useLocation();
-        // const navigate = useNavigate()
-        // 只有路由组件。才能使用loaction
-        // console.log("这是当前路径" + JSON.stringify( location.pathname))
 
-        // if (currentNav) {
-
-        // }
-        // let path = this.props.location.pathname
-        // console.log("这是path" + path)
-        // 当前选中的状态
-        // let { currentContentPath } = this.state
-        // if (currentContentPath.length != 0) {
-        // console.log("来这里了,这里有问题")
-        // return <Navigate to='/login' />
-        // return <Navigate to='message' />
-
-        // return <Navigate to={currentContentPath} />
-        // }
+        // 如果用户有_id，且要跳转路径是'/'。根据用户类型
+        let path = this.props.location.pathname
+        if (path === '/') {
+            let path = getRedirectTo(user.type, user.header)
+            return <Navigate to={path} />
+        }
 
         // 显示下面的tab
         let displayLaobanTab = true
@@ -98,13 +77,26 @@ class Main extends Component {
         )
     }
 }
+
+// 将Class 进行包装函数组件。这样就能使用location，navigate了。
+function widthRouter(Component) {
+    // 函数组件
+    function ComponentWithRouterProp(props) {
+        let location = useLocation()
+        let navigate = useNavigate()
+        let params = useParams()
+
+        return (
+            <Component {...props} location={location} navigate={navigate} params={params}></Component>
+        )
+    }
+    return ComponentWithRouterProp
+}
 /*
  redux是本身是脱离于react框架的。提供一个全局状态共享的路径。
  redux的connect实际上是给原有组件包装一个容器。
  1. 状态发生变化时可以局部更新这个组件。
  2. 可以通过dispatch去改变状态的值
-
- Flutter的provide
 */
 const mapStateToProps = (state) => {
     return { user: state.user }
@@ -113,4 +105,4 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     getUser
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Main)
+export default connect(mapStateToProps, mapDispatchToProps)(widthRouter(Main))

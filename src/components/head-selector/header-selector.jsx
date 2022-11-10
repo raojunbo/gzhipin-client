@@ -16,7 +16,8 @@ export default class HeaderSelector extends Component {
                 {
                     text: '头像' + (i + 1),
                     // 采用require引用
-                    icon: require(`./images/头像${i + 1}.png`)
+                    icon: require(`../../assets/images/头像${i + 1}.png`)
+                    // icon: require(`./images/头像${i + 1}.png`)
                 }
             )
         }
