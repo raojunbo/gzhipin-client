@@ -7,9 +7,7 @@ import { getRedirectTo } from '../../utils/util'
 import { getUser } from '../../redux/actions' // 引入redux的actions
 
 import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
-import BottomTabbar from "../../components/bottom-tabbar/bottom-tabbar";
-import UserList from "../../components/user-list/user-list";
-
+import { BottomTabbar, navList } from "../../components/bottom-tabbar/bottom-tabbar";
 /**
  * 1.实现自动的登录
  *      如果cookie中有userid，发出请求获取对应的user。
@@ -20,10 +18,6 @@ import UserList from "../../components/user-list/user-list";
 class Main extends Component {
     constructor(props) {
         super(props)
-        // this.state = {
-        //     currentContentPath: 'message',
-        // }
-
     }
     componentDidMount() {
         const userid = Cookies.get('userid')
@@ -56,6 +50,8 @@ class Main extends Component {
             let path = getRedirectTo(user.type, user.header)
             return <Navigate to={path} />
         }
+        
+
 
         // 显示下面的tab
         let displayLaobanTab = true
@@ -64,15 +60,30 @@ class Main extends Component {
         } else {
             displayLaobanTab = true
         }
+        if (displayLaobanTab) {
+            navList[1].hide = false
+            navList[0].hide = true
+        } else {
+            navList[1].hide = true
+            navList[0].hide = false
+        }
+        let filterNavList = navList.filter(nav => !nav.hide)
+      
 
-        // const {navList} = this.props
+        let displayNav = filterNavList.find(item => {
+            return item.fullpath === path
+        })
 
-        // 匹配了路由就显示
+        if(path === '/main'){
+            const firstItem = filterNavList[0]
+            return <Navigate to={firstItem.path} />
+        }
+
         return (
-            <div>
-                <TopNavBar title='硅谷直聘'></TopNavBar>
+            <div style={{background: 'gray'}}>
+                {displayNav ? <TopNavBar title='硅谷直聘'></TopNavBar> : null}
                 <Outlet></Outlet>
-                <BottomTabbar displayLaobanTab={displayLaobanTab} onTabChanged={(val) => this.onTabChanged(val)}> </BottomTabbar>
+                {displayNav ? <BottomTabbar navList={filterNavList} onTabChanged={(val) => this.onTabChanged(val)} /> : null}
             </div>
         )
     }

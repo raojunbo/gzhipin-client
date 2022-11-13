@@ -44,7 +44,8 @@ class LaobanInfo extends Component {
         const { header, type } = this.props.user
         // 若果信息已经完善过
         if (header) {
-            const path = type === 'dashen' ? '/dashen' : '/laoban'
+            // const path = type === 'dashen' ? '/dashen' : '/laoban'
+            const path = '/main'
             return <Navigate to={path} />
         }
         return (

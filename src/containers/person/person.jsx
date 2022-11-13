@@ -38,7 +38,7 @@ class Person extends Component {
         const { username, type, post, salary, info, company, header } = this.props.user
         console.log("这是person的user" + JSON.stringify(this.props.user))
         return (
-            <div>
+            <div style={{ marginTop: 45, marginBottom: 49 }}>
                 <Result
                     status='error'
                     title={username}

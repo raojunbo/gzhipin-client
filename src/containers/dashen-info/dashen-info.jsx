@@ -39,7 +39,8 @@ class DashenInfo extends Component {
         const { header, usertype } = this.props.user
         // 若果信息已经完善过
         if (header) {
-            const path = usertype === 'dashen' ? '/dashen' : '/laoban'
+            // const path = usertype === 'dashen' ? '/main' : '/laoban'
+            const path = '/main'
             return <Navigate to={path} />
         }
         return (

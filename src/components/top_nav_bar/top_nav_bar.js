@@ -9,14 +9,10 @@ import './top_nav_bar.less'
 
 export default function TopNavBar(props) {
     const {title} = props
-    return (<NavBar className="navBar top-nav-bar">{title}</NavBar>)
-     
+    return (
+        <div className="top-nav-bar">
+              <NavBar className="navBar">{title}</NavBar>
+        </div>
+      
+    )
 }
-
-// export default class TopNavBar extends Component {
-//     render() {
-//         return (
-//             <NavBar className="navBar top-nav-bar"></NavBar>
-//         )
-//     }
-// }
