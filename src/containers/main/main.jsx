@@ -15,6 +15,11 @@ import { BottomTabbar, navList } from "../../components/bottom-tabbar/bottom-tab
  * 2. 如果已经登录
  *      如果根路径，根据user的type来和header计算重定向的路径。
  */
+
+/**
+ * socket 的一个博客
+ * https://blog.csdn.net/neuq_zxy/article/details/77531126
+ */
 class Main extends Component {
     constructor(props) {
         super(props)

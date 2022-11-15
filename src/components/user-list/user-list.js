@@ -8,7 +8,7 @@ import './user-list.less'
 
 export default function UserList(props) {
     const { userList } = props
-    console.log("这是结果" + JSON.stringify(userList))
+
     function onClick() {
         console.log("这是点击效果")
     }

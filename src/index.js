@@ -8,6 +8,8 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
+import './test/socketio_test'
+
 // 清除浏览器默认样式，例如浏览器默认的margin
 import "normalize.css"
 // 解决移动端点击延迟的问题

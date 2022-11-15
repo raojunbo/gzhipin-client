@@ -83,7 +83,6 @@ export const updateUser = (user) => {
     return async dispatch => {
         const response = await reqUpdateUser(user)
         const result = response.data
-        console.log("这是结果" + result.data)
         if (result.code == 0) {
             // 更新成功
             dispatch(getReceiveUserAction(result.data))
@@ -98,7 +97,7 @@ export const getUser = () => {
     return async dispatch => {
         const response = await reqUser()
         const result = response.data
-        console.log("这是结果" + JSON.stringify(result.data))
+
         if (result.code == 0) {
             dispatch(getReceiveUserAction(result.data))
         } else {
@@ -110,7 +109,7 @@ export const getUserList = (usertype) => {
     return async dispatch => {
         const response = await reqGetUserList(usertype)
         const result = response.data
-        console.log("这是结果" + JSON.stringify(result))
+
         if (result.code == 0) {
             // redux 分发同步action
             dispatch(getUserListAction(result.data))
