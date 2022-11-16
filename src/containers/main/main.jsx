@@ -78,7 +78,7 @@ class Main extends Component {
         let displayNav = filterNavList.find(item => {
             return item.fullpath === path
         })
-
+        console.log("来这了吗" + path)
         if(path === '/main'){
             const firstItem = filterNavList[0]
             return <Navigate to={firstItem.path} />

@@ -11,20 +11,23 @@ export default function UserList(props) {
     const { userList } = props
     let navigate = useNavigate()
 
-    function onClick(value) {
-        console.log("这是点击效果" + value)
-        navigate('/main/chat')
+    function onClick(user) {
+        console.log("这是点击效果" + user)
+        navigate(`/main/chat/${user._id}`)
     }
-
+    function headPath(header) {
+        let disHeader = header ? header : "头像1"
+        return require(`../../assets/images/${disHeader}.png`)
+    }
     return (
-        <div className='user-list'>  
+        <div className='user-list'>
             {
                 userList.map((user, index) => (
-                    <Card onClick={(user) => onClick(user)} key={index} bodyStyle={{ marginBottom: 5 }}>
+                    <Card onClick={() => onClick(user)} key={index} bodyStyle={{ marginBottom: 5 }}>
                         <div className='user-list-item'>
 
                             <div className='user-list-item-header'>
-                                <Image src={require(`../../assets/images/${user.header}.png`)} width={44} height={44} fit='cover' style={{ borderRadius: 4 }} />
+                                <Image src={headPath(user.header)} width={44} height={44} fit='cover' style={{ borderRadius: 4 }} />
                                 <div>{user.username}</div>
                             </div>
 
