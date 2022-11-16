@@ -19,7 +19,7 @@ class NotFound extends Component {
     render() {
         // 通过状态
         if (this.state.back) {
-            return <Navigate to='/' />
+            return <Navigate to='/'/>
         }
         return (
             <div>
