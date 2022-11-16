@@ -5,18 +5,22 @@ import {
 } from 'antd-mobile'
 import { func } from 'prop-types'
 import './user-list.less'
+import { useNavigate } from 'react-router-dom'
 
 export default function UserList(props) {
     const { userList } = props
+    let navigate = useNavigate()
 
-    function onClick() {
-        console.log("这是点击效果")
+    function onClick(value) {
+        console.log("这是点击效果" + value)
+        navigate('/main/chat')
     }
+
     return (
-        <div className='user-list'>
+        <div className='user-list'>  
             {
                 userList.map((user, index) => (
-                    <Card onClick={onClick} key={index} bodyStyle={{ marginBottom: 5 }}>
+                    <Card onClick={(user) => onClick(user)} key={index} bodyStyle={{ marginBottom: 5 }}>
                         <div className='user-list-item'>
 
                             <div className='user-list-item-header'>

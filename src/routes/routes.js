@@ -9,6 +9,7 @@ import Person from '../containers/person/person'
 import Message from '../containers/message/message'
 import DashenInfo from '../containers/dashen-info/dashen-info'
 import LaobanInfo from '../containers/laoban-info/laoban-info'
+import Chat from '../containers/chat/chat'
 // 全局路由配置入口
 export default [
     {
@@ -51,6 +52,10 @@ export default [
             {
                 path: 'laobaninfo',
                 element: <LaobanInfo />
+            },
+            {
+                path: 'chat/:userid',
+                element: <Chat />
             }
         ]
     },
