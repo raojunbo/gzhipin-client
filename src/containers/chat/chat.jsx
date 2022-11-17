@@ -49,15 +49,11 @@ class Chat extends Component {
     render() {
         let { users, chatMsgs } = this.props
         
-        console.log("这是msgList" + JSON.stringify(this.props))
-        // if(!chatMsgs) {
-        //     chatMsgs = []
-        // }
         return (
             <div >
                 <TopNavBar title='硅谷直聘'></TopNavBar>
                 <List className='chat-list'>
-                    {/* {
+                    {
                         chatMsgs.map((msg, index) => (
                             <List.Item >
                                 <div className='chat-item-left'>
@@ -66,7 +62,7 @@ class Chat extends Component {
                                 </div>
                             </List.Item>
                         ))
-                    } */}
+                    }
                    
                 </List>
 
@@ -96,9 +92,9 @@ function widthRouter(Component) {
     return ComponentWithRouterProp
 }
 
-// return  {users: action.data.users, chatMsgs: action.data.chatMsgs}
 const mapStateToProps = (state) => {
-    return { users: state.users, chatMsgs: state.chatMsgs }
+    // 从状态中获取数据
+    return { users: state.chatList.users, chatMsgs: state.chatList.chatMsgs }
 }
 
 const mapDispatchToProps = {

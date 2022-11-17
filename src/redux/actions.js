@@ -150,8 +150,8 @@ export const getChatList = () => {
     return async (dispatch) => {
         const response = await reqChatList()
         const result = response.data
-        if(result.code) {
-            dispatch(getChatListAction(result.data))
+        if(result.code == 0) {          
+            dispatch(getChatListAction(result.data) )
         }
     }
 }

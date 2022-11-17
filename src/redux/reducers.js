@@ -4,7 +4,9 @@ import {
     ERROR_MSG, 
     RECEIVE_USER, 
     RESET_USER, 
+    
     RECEIVE_USER_LIST, 
+
     RECEIVE_CHAT_LIST
 } from './action-types'
 import {getRedirectTo} from '../utils/util'
@@ -50,9 +52,8 @@ function chatList(state = initChatList, action) {
     switch (action.type) {
 
         case RECEIVE_CHAT_LIST:
-            let to =  {users: action.data.users, chatMsgs: action.data.chatMsgs}
-            console.log("这是状态" + to)
-            return  to
+            console.log("这里来了吗" + JSON.stringify(action.data))
+            return  {users: action.data.users, chatMsgs: action.data.chats}
         default:
             return state
     }
