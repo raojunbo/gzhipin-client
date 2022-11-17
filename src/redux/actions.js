@@ -5,6 +5,7 @@ import {
     reqUser,
     reqGetUserList
 } from '../api/index'
+
 import UserList from '../components/user-list/user-list'
 
 import {
@@ -14,6 +15,21 @@ import {
     RESET_USER,
     RECEIVE_USER_LIST
 } from './action-types'
+
+import io from 'socket.io-client'
+
+function initIO() {
+    // 该项目是被部署到localhost:300的端口上，所有socket也是在这个端口上
+    if (!io.socket) {
+        // 直接将其保存在io对象上
+        io.socket = io('ws://localhost:3000', { cors: true })
+
+        // 接收到消息
+        io.socket.on('receiveMsg', function (data) {
+            console.log('浏览器端接收到消息:', data)
+        })
+    }
+}
 
 // 通过向store中发action。来改变store中的状态。
 const getAuthSucessAction = (user) => {
@@ -29,7 +45,7 @@ export const resetUserAction = (msg) => {
     return { type: RESET_USER, data: msg }
 }
 const getUserListAction = (userList) => {
-    return {type:RECEIVE_USER_LIST, data: userList }
+    return { type: RECEIVE_USER_LIST, data: userList }
 }
 
 // 当收到数据后，发送action
@@ -94,7 +110,7 @@ export const updateUser = (user) => {
 }
 
 export const getUser = () => {
-    return async dispatch => {
+    return async (dispatch) => {
         const response = await reqUser()
         const result = response.data
 
@@ -105,8 +121,9 @@ export const getUser = () => {
         }
     }
 }
+
 export const getUserList = (usertype) => {
-    return async dispatch => {
+    return async (dispatch) => {
         const response = await reqGetUserList(usertype)
         const result = response.data
 
@@ -114,5 +131,14 @@ export const getUserList = (usertype) => {
             // redux 分发同步action
             dispatch(getUserListAction(result.data))
         }
+    }
+}
+
+export const sendMsg = ({ from, to, content }) => {
+    console.log("开始执行发送消息")
+    return (dispatch) => {
+        console.log("发送消息" + dispatch)
+        initIO()
+        io.socket.emit('sendMsg', { from, to, content  })
     }
 }
