@@ -1,9 +1,12 @@
 import { combineReducers } from 'redux'
-import { AUTH_SUCESS, 
+import { 
+    AUTH_SUCESS, 
     ERROR_MSG, 
     RECEIVE_USER, 
     RESET_USER, 
-    RECEIVE_USER_LIST } from './action-types'
+    RECEIVE_USER_LIST, 
+    RECEIVE_CHAT_LIST
+} from './action-types'
 import {getRedirectTo} from '../utils/util'
 
 // 给user一个初始化的状态
@@ -41,5 +44,20 @@ function userList(state=initUserList, action) {
             return state
     }
 }
+
+const initChatList = {}
+function chatList(state = initChatList, action) {
+    switch (action.type) {
+
+        case RECEIVE_CHAT_LIST:
+            let to =  {users: action.data.users, chatMsgs: action.data.chatMsgs}
+            console.log("这是状态" + to)
+            return  to
+        default:
+            return state
+    }
+}
 // Reducers是收到数据后的函数处理
-export default combineReducers({user, userList})
+export default combineReducers({user, userList, chatList})
+
+

@@ -2,33 +2,37 @@
 import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import TopNavBar from '../../components/top_nav_bar/top_nav_bar'
-import { List, Image, Input, Form } from 'antd-mobile'
+import { List,  Image, Input, Form } from 'antd-mobile'
 import './chat.less'
-import { useParams} from 'react-router-dom'
-import {sendMsg} from  '../../redux/actions' 
+import { useParams } from 'react-router-dom'
+import { sendMsg, getChatList } from '../../redux/actions'
 
 
 class Chat extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            toSendText:''
+            toSendText: '',
+            // msgList: []
         }
     }
     componentDidMount() {
+        // 1. 进去时获取
+        this.props.getChatList()
+        // 2. 收到消息时
 
     }
     sendClick() {
-     
+
         const from = this.props.user._id
         const to = this.props.params.userid
         const content = this.state.toSendText.trim()
-        if(content) {   
-            this.props.sendMsg({from,to,content})
+        if (content) {
+            this.props.sendMsg({ from, to, content })
         }
         // 清空内容
         this.setState({
-            content:null
+            content: null
         })
         // console.log("发送" + from + "to" + to + this.state.toSendText)
 
@@ -43,36 +47,29 @@ class Chat extends Component {
         return require(`../../assets/images/${disHeader}.png`)
     }
     render() {
+        let { users, chatMsgs } = this.props
+        
+        console.log("这是msgList" + JSON.stringify(this.props))
+        // if(!chatMsgs) {
+        //     chatMsgs = []
+        // }
         return (
             <div >
                 <TopNavBar title='硅谷直聘'></TopNavBar>
                 <List className='chat-list'>
-                    <List.Item >
-                        <div className='chat-item-left'>
-                            <Image src={this.headPath()} width={30} height={30} fit='cover' style={{ borderRadius: 4 }} />
-                            <div>你好</div>
-                        </div>
-                    </List.Item>
-                    <List.Item>
-                        <div className='chat-item-left'>
-                            <Image src={this.headPath()} width={30} height={30} fit='cover' style={{ borderRadius: 4 }} />
-                            <div>你好2</div>
-                        </div>
-                    </List.Item>
-                    <List.Item>
-                        <div className='chat-item-right'>
-                            <div>很好</div>
-                            <Image src={this.headPath()} width={30} height={30} fit='cover' style={{ borderRadius: 4 }} />
-                        </div>
-                    </List.Item>
-                    <List.Item>
-                        <div className='chat-item-right'>
-                            <div>很好2</div>
-                            <Image src={this.headPath()} width={30} height={30} fit='cover' style={{ borderRadius: 4 }} />
-
-                        </div>
-                    </List.Item>
+                    {/* {
+                        chatMsgs.map((msg, index) => (
+                            <List.Item >
+                                <div className='chat-item-left'>
+                                    <Image src={this.headPath()} width={30} height={30} fit='cover' style={{ borderRadius: 4 }} />
+                                    <div>{msg.content}</div>
+                                </div>
+                            </List.Item>
+                        ))
+                    } */}
+                   
                 </List>
+
                 <Form layout='horizontal'>
                     <Form.Item extra={
                         <div className='extraPart' onClick={() => this.sendClick()}>
@@ -80,7 +77,7 @@ class Chat extends Component {
                         </div>
                     }
                     >
-                        <Input placeholder='请输入要发送的内容' value={this.state.toSendText} onChange={(val) => this.handleChange('toSendText',val)} clearable />
+                        <Input placeholder='请输入要发送的内容' value={this.state.toSendText} onChange={(val) => this.handleChange('toSendText', val)} clearable />
                     </Form.Item>
                 </Form>
             </div>
@@ -98,11 +95,14 @@ function widthRouter(Component) {
     }
     return ComponentWithRouterProp
 }
+
+// return  {users: action.data.users, chatMsgs: action.data.chatMsgs}
 const mapStateToProps = (state) => {
-    return {user: state.user}
+    return { users: state.users, chatMsgs: state.chatMsgs }
 }
 
 const mapDispatchToProps = {
-    sendMsg
+    sendMsg,
+    getChatList
 }
 export default connect(mapStateToProps, mapDispatchToProps)(widthRouter(Chat))

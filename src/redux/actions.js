@@ -3,7 +3,8 @@ import {
     reqLogin,
     reqUpdateUser,
     reqUser,
-    reqGetUserList
+    reqGetUserList,
+    reqChatList
 } from '../api/index'
 
 import UserList from '../components/user-list/user-list'
@@ -13,7 +14,8 @@ import {
     ERROR_MSG,
     RECEIVE_USER,
     RESET_USER,
-    RECEIVE_USER_LIST
+    RECEIVE_USER_LIST,
+    RECEIVE_CHAT_LIST
 } from './action-types'
 
 import io from 'socket.io-client'
@@ -46,6 +48,9 @@ export const resetUserAction = (msg) => {
 }
 const getUserListAction = (userList) => {
     return { type: RECEIVE_USER_LIST, data: userList }
+}
+const getChatListAction = (chatList) => {
+    return {type: RECEIVE_CHAT_LIST, data: chatList}
 }
 
 // 当收到数据后，发送action
@@ -135,10 +140,18 @@ export const getUserList = (usertype) => {
 }
 
 export const sendMsg = ({ from, to, content }) => {
-    console.log("开始执行发送消息")
     return (dispatch) => {
-        console.log("发送消息" + dispatch)
         initIO()
         io.socket.emit('sendMsg', { from, to, content  })
+    }
+}
+
+export const getChatList = () => {
+    return async (dispatch) => {
+        const response = await reqChatList()
+        const result = response.data
+        if(result.code) {
+            dispatch(getChatListAction(result.data))
+        }
     }
 }
