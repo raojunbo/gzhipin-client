@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Navigate, Outlet, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { NavBar } from 'antd-mobile'
 import Cookies from 'js-cookie'
 
 import { getRedirectTo } from '../../utils/util'
 import { getUser } from '../../redux/actions' // 引入redux的actions
 
-import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
 import { BottomTabbar, navList } from "../../components/bottom-tabbar/bottom-tabbar";
 /**
  * 1.实现自动的登录
@@ -31,32 +31,26 @@ class Main extends Component {
             this.props.getUser()
         }
     }
-    onTabChanged(path) {
-        // console.log("这是改变" + JSON.stringify(this.state))
-        // this.setState({
-        // currentContentPath: path
-        // })
-    }
     render() {
+        // 从cookies中获取
         const userid = Cookies.get('userid')
         if (!userid) {
             console.log("走!userid")
             return <Navigate to='/login' />
         }
-        const { user } = this.props
+        // 从props中获取user
+        let { user } = this.props
         if (!user._id) {
             console.log("走!_id  暂时不做任何显示，让其去走网络请求")
             return null
         }
 
-        // 如果用户有_id，且要跳转路径是'/'。根据用户类型
+        // 如果用户有_id，且要外部的路径时跳转路径是'/'。根据用户类型重新选中路由
         let path = this.props.location.pathname
         if (path === '/') {
             let path = getRedirectTo(user.type, user.header)
             return <Navigate to={path} />
         }
-        
-
 
         // 显示下面的tab
         let displayLaobanTab = true
@@ -73,22 +67,22 @@ class Main extends Component {
             navList[0].hide = false
         }
         let filterNavList = navList.filter(nav => !nav.hide)
-      
+
 
         let displayNav = filterNavList.find(item => {
             return item.fullpath === path
         })
-        console.log("来这了吗" + path)
-        if(path === '/main'){
+
+        if (path === '/main') {
             const firstItem = filterNavList[0]
             return <Navigate to={firstItem.path} />
         }
-
+        const { unReadAllCount } = this.props
         return (
-            <div style={{background: 'gray'}}>
-                {displayNav ? <TopNavBar title='硅谷直聘'></TopNavBar> : null}
+            <div>
+                {displayNav ? <NavBar>硅谷直聘</NavBar> : null}
                 <Outlet></Outlet>
-                {displayNav ? <BottomTabbar navList={filterNavList} onTabChanged={(val) => this.onTabChanged(val)} /> : null}
+                {displayNav ? <BottomTabbar navList={filterNavList} unReadAllCount={unReadAllCount} /> : null}
             </div>
         )
     }
@@ -115,7 +109,7 @@ function widthRouter(Component) {
  2. 可以通过dispatch去改变状态的值
 */
 const mapStateToProps = (state) => {
-    return { user: state.user }
+    return { user: state.user, unReadAllCount: state.msgList.unReadAllCount }
 }
 
 const mapDispatchToProps = {

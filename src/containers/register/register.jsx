@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import {
-    Form,
-    Input,
-    Radio,
-    Button
+    NavBar, WingBlank, List, WhiteSpace, InputItem, Radio, Button
 } from 'antd-mobile'
 
-import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
+// import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
 import Logo from "../../components/logo/logo";
-
-import { FormItem } from "antd-mobile/es/components/form/form-item";
 
 import { Navigate } from "react-router-dom";
 import { connect } from "react-redux"; // 引入redux的connect
 import { register } from '../../redux/actions' // 引入redux的actions
+
 
 class Register extends Component {
     constructor(props) {
@@ -48,37 +44,61 @@ class Register extends Component {
         if (this.state.toLogin) {
             return <Navigate to='/login' />
         }
+        const {type} = this.state
         return (
             <div>
-                <TopNavBar>硅谷直聘</TopNavBar>
-                <Logo />
-                {msg ? <p className='error-msg'>{msg}</p> : null}
-                <Form layout='horizontal'>
-                    <Form.Item label='用户名:'>
-                        <Input placeholder='请输入' onChange={(val) => this.handleChange("username", val)} />
-                    </Form.Item>
-                    <Form.Item label='密&nbsp;&nbsp;&nbsp;码:'>
-                        <Input placeholder='请输入' onChange={(val) => this.handleChange("password", val)} />
-                    </Form.Item>
-                    <Form.Item label='确认密码:'>
-                        <Input placeholder='请输入' onChange={(val) => this.handleChange("password2", val)} />
-                    </Form.Item>
-                    <Form.Item label='用户类型:'>
-                        <Radio checked={this.state.usertype === "dashen"} onChange={(val) => this.handleChange("usertype", "dashen")}>大神</Radio>
-                        &nbsp;&nbsp;
-                        <Radio checked={this.state.usertype === "laoban"} onChange={(val) => this.handleChange("usertype", "laoban")}>老板</Radio>
-                    </Form.Item>
-                    <FormItem>
-                        <Button color='primary' fill='solid' block onClick={() => this.toRegiste()}>注&nbsp;&nbsp;&nbsp;册 </Button>
-                    </FormItem>
-                    <FormItem>
-                        <Button block onClick={() => this.toLogin()}>已有账户</Button>
-                    </FormItem>
-                </Form>
+                <NavBar>硅谷直聘</NavBar>
+                <Logo/>
+                <WingBlank>
+                    <List>
+                        {msg ? <p className='error-msg'>{msg}</p> : null}
+                        <WhiteSpace />
+                        <InputItem placeholder="请输入用户名" onChange={val => this.handleChange('username', val)}>用户名:</InputItem>
+                        <WhiteSpace />
+                        <InputItem type='password' placeholder="请输入密码" onChange={val => this.handleChange('password', val)}>密码:</InputItem>
+                        <WhiteSpace />
+                        <InputItem type='password' placeholder="请输入确认密码" onChange={val => this.handleChange('password2', val)}>确认密码:</InputItem>
+                        <WhiteSpace />
+                        <List.Item>
+                            <span>用户类型:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <Radio onChange={() => this.handleChange('type', 'dashen')} checked={type === 'dashen'}>大神</Radio>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <Radio onChange={() => this.handleChange('type', 'laoban')} checked={type === 'laoban'}>老板</Radio>
+                        </List.Item>
+                        <WhiteSpace />
+
+                        <Button type="primary" onClick={this.register}>注&nbsp;&nbsp;册</Button>
+                        <WhiteSpace />
+                        <Button onClick={this.goLogin}>已有账户</Button>
+                    </List>
+                </WingBlank>
             </div>
         )
     }
 }
+
+// {msg ? <p className='error-msg'>{msg}</p> : null}
+//                 <Form layout='horizontal'>
+//                     <Form.Item label='用户名:'>
+//                         <Input placeholder='请输入' onChange={(val) => this.handleChange("username", val)} />
+//                     </Form.Item>
+//                     <Form.Item label='密&nbsp;&nbsp;&nbsp;码:'>
+//                         <Input placeholder='请输入' onChange={(val) => this.handleChange("password", val)} />
+//                     </Form.Item>
+//                     <Form.Item label='确认密码:'>
+//                         <Input placeholder='请输入' onChange={(val) => this.handleChange("password2", val)} />
+//                     </Form.Item>
+//                     <Form.Item label='用户类型:'>
+//                         <Radio checked={this.state.usertype === "dashen"} onChange={(val) => this.handleChange("usertype", "dashen")}>大神</Radio>
+//                         &nbsp;&nbsp;
+//                         <Radio checked={this.state.usertype === "laoban"} onChange={(val) => this.handleChange("usertype", "laoban")}>老板</Radio>
+//                     </Form.Item>
+//                     <FormItem>
+//                         <Button color='primary' fill='solid' block onClick={() => this.toRegiste()}>注&nbsp;&nbsp;&nbsp;册 </Button>
+//                     </FormItem>
+//                     <FormItem>
+//                         <Button block onClick={() => this.toLogin()}>已有账户</Button>
+//                     </FormItem>
+//                 </Form>
 
 // mapStateToProps  当store状态发生变化时就会调用此方法。并返回一个对象。这个对象会与组件的props合并。
 // 参数为state。在state里找到需要的状态。

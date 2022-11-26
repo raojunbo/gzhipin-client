@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { List, Grid, Image } from "antd-mobile";
+import { List, Grid } from "antd-mobile";
 import ProTypes from 'prop-types'
+
 export default class HeaderSelector extends Component {
     static propTypes = {
         setHeader: ProTypes.func.isRequired
@@ -36,7 +37,7 @@ export default class HeaderSelector extends Component {
             listHeader = (
                 <div>
                     已经选择头像：
-                    <Image src={icon} width={64} height={64} fit='cover' style={{ borderRadius: 4 }} />
+                    <img src={icon} width={64} height={64} fit='cover' style={{ borderRadius: 4 }} />
                 </div>
             )
         }
@@ -48,7 +49,7 @@ export default class HeaderSelector extends Component {
                             return (
                                 <Grid.Item key={index}  >
                                     <div className='grid_item_block' onClick={() => this.handlerClick(item, index)}>
-                                        <Image src={item.icon} width={64} height={64} fit='cover' style={{ borderRadius: 4 }} />
+                                        <img src={item.icon} width={64} height={64} fit='cover' style={{ borderRadius: 4 }} />
                                         <div >头像{(index + 1)}</div>
                                     </div>
                                 </Grid.Item>

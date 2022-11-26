@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import {
     NavBar,
-    Form,
-    Input,
+    WingBlank,
+    List,
+    InputItem,
+    WhiteSpace,
     Button
 } from 'antd-mobile'
 
-
-import TopNavBar from "../../components/top_nav_bar/top_nav_bar";
 import Logo from "../../components/logo/logo";
-
-import { FormItem } from "antd-mobile/es/components/form/form-item";
-
 import { Navigate } from "react-router-dom";// 引入Navgiate
 import { connect } from "react-redux"; // 引入redux的connect
 import { login } from '../../redux/actions' // 引入redux的actions
@@ -30,7 +27,6 @@ class Login extends Component {
         })
     }
     toLogin() {
-        // 调用props里的login的redux方法
         this.props.login(this.state)
     }
     toRegister() {
@@ -38,8 +34,6 @@ class Login extends Component {
     }
     render() {
         const { msg, redirectTo } = this.props.user
-        console.log("这是Login props" + JSON.stringify(this.props))
-        console.log("这是Login state" + JSON.stringify(this.state))
         // 登录成功后会给出路由跳转
         if (redirectTo) {
             return <Navigate to={redirectTo} />
@@ -50,29 +44,41 @@ class Login extends Component {
         }
         return (
             <div>
-                <TopNavBar>硅谷直聘</TopNavBar>
+                <NavBar>硅谷直聘</NavBar>
                 <Logo />
-                {msg ? <p className='error-msg'>{msg}</p> : null}
-                <Form layout='horizontal'>
-                    <Form.Item label='用户名:'>
-                        <Input placeholder='请输入' onChange={(val) => this.handleChange("username", val)} />
-                    </Form.Item>
-                    <Form.Item label='密&nbsp;&nbsp;&nbsp;码:'>
-                        <Input placeholder='请输入' onChange={(val) => this.handleChange("password", val)} />
-                    </Form.Item>
+                <WingBlank>
+                    <List>
+                        {msg ? <p className='error-msg'>{msg}</p> : null}
+                        <InputItem
+                            placeholder='输入用户名'
+                            onChange={val => this.handleChange('username', val)}
+                        >
+                            用户名:
+                        </InputItem>
 
-                    <FormItem>
-                        <Button color='primary' fill='solid' block onClick={() => this.toLogin()}>登&nbsp;&nbsp;&nbsp;录 </Button>
-                    </FormItem>
-                    <FormItem>
-                        <Button block onClick={() => this.toRegister()}>还没有账号</Button>
-                    </FormItem>
-                </Form>
+                        <WhiteSpace />
+
+                        <InputItem
+                            type='password'
+                            placeholder='输入密码'
+                            onChange={val => this.handleChange('password', val)}
+                        >
+                            密&nbsp;&nbsp;&nbsp;码:
+                        </InputItem>
+
+                        <WhiteSpace />
+
+                        <Button type='primary' onClick={() => this.toLogin()}>登&nbsp;&nbsp;&nbsp;陆</Button>
+
+                        <WhiteSpace />
+
+                        <Button onClick={this.toRegister}>还没有账号</Button>
+                    </List>
+                </WingBlank>
             </div>
         )
     }
 }
-// export default Login
 
 const mapStateToProps = (state) => {
     return { user: state.user }

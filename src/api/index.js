@@ -11,7 +11,7 @@ export const reqUser = () => ajax('/user')
 export const reqGetUserList = (usertype) =>  ajax('/getUserList',{usertype})
 
 // 获取当前用户的聊天记录
-export const reqChatList = () => ajax('/msgList')
+export const reqMsgList = () => ajax('/msgList')
 
 // 标记已读
-export const reqReadChatMsg = (from) => ajax('/readmsg',{from},'POST')
+export const reqMarkReadMsg = (to_userid) => ajax('/readmsg',{to_userid},'POST')

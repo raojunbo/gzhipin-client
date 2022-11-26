@@ -54,7 +54,7 @@ export default [
                 element: <LaobanInfo />
             },
             {
-                path: 'chat/:userid',
+                path: 'chat/:to_userid',
                 element: <Chat />
             }
         ]

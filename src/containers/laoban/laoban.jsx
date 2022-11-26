@@ -3,13 +3,6 @@ import { connect } from 'react-redux'
 import UserList from "../../components/user-list/user-list";
 import { getUserList } from '../../redux/actions'
 
-import {
-    Form,
-    Input,
-    Button,
-    TextArea
-} from 'antd-mobile'
-
 class LaoBan extends Component {
     constructor(props) {
         super(props);

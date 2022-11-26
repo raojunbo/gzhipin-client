@@ -1,23 +1,32 @@
 .chat-list {
     margin-top: 45px; // 导航高度
 }
-.chat-item-left {
-    display: flex;
-    flex-direction:row;
-    justify-content: flex-start;
-    align-items: center;
-    margin-left: 10px;
+
+/*消息文本居右*/
+#chat-page .chat-me .am-list-extra {
+    flex-basis: auto;
+    /*宽度包裹内容*/
 }
-.chat-item-right {
-    display: flex;
-    flex-direction:row;
-    justify-content: flex-end;
-    align-items: center;
-    margin-right: 10px;
+
+#chat-page .chat-me .am-list-content {
+    text-align: right;
 }
-.extraPart {
-    border-left: solid 1px #eeeeee;
-    padding-left: 12px;
-    font-size: 17px;
-    line-height: 22px;
-  }
+
+.chat-bottom-bar {
+    /*使导航始终在底部*/
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: inherit;
+    /*高度包裹内容*/
+}
+
+.grid-demo-item-block {
+    border: solid 1px #999999;
+    width: 40px;
+    height: 40px;
+    background: var(--adm-color-box);
+    text-align: center;
+    color: #999999;
+    // height: 100%;
+}
